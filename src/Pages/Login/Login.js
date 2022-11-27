@@ -62,7 +62,7 @@ const Login = () => {
                         }
                     </div>
                 </form>
-                <p className='my-2'>New to Unused Bargain <Link to='/signup'><span className='text-primary'>Create an Account</span></Link></p>
+                <p className='my-2'>New to Unused Bargain <Link to='/signup'><span className='text-primary'>Register Now</span></Link></p>
 
                 <div className="divider">OR</div>
                 <button className='btn btn-outline w-full bg-red-400'>CONTINUE WITH GOOGLE</button>

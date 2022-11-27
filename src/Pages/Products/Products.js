@@ -19,7 +19,7 @@ const Products = () => {
         fetchData()
     }, [id]);
     return (
-        <div>
+        <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5'>
             {
                 products.map(product => <Product key={product.id} product={product} ></Product>)
             }
