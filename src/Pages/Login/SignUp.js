@@ -3,42 +3,56 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
+import useToken from '../../hooks/useToken';
 
 
 const SignUp = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser } = useContext(AuthContext);
-    const [signupError, setSignupError] = useState('');
-
+    const [signUpError, setSignUPError] = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
 
-    const handleSignUp = data => {
-        console.log(data)
-        setSignupError('');
+    if (token) {
+        navigate('/');
+    }
 
-        // createUser(data.email, data.password)
-        //     .then(result => {
-        //         const user = result.user;
-        //         console.log(user);
+    const handleSignUp = (data) => {
+        setSignUPError('');
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast('User Created Successfully.')
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => {
+                        saveUser(data.name, data.email, data.role);
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(error => {
+                console.log(error)
+                setSignUPError(error.message)
+            });
+    }
 
-        //         toast('Create user successful.');
-
-        //         const userInfo = {
-        //             displayName: data.name
-        //         };
-
-        //         updateUser(userInfo)
-        //             .then(() => {
-        //                 navigate('/');
-        //             })
-        //             .catch(err => console.log(err));
-
-        //     })
-        //     .catch(error => {
-        //         console.log(error)
-        //         setSignupError(error.message);
-        //     });
-
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+            })
     }
     return (
         <div className='h-[800px] flex justify-center items-center text-neutral'>
@@ -75,7 +89,7 @@ const SignUp = () => {
 
                     <input className='btn w-full' type="submit" value='SignUp' />
                     {
-                        signupError && <p className='text-red-500'>{signupError}</p>
+                        signUpError && <p className='text-red-500'>{signUpError}</p>
                     }
                 </form>
                 <p className='my-2'>Already have an account? <Link to='/login'><span className='text-primary'>Please login</span></Link></p>
