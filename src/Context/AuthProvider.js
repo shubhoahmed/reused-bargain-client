@@ -40,9 +40,16 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             setLoading(false);
         })
-
+        if (user) {
+            fetch('http://localhost:5000/users')
+                .then(res => res.json())
+                .then(data => {
+                    user.role = data.role;
+                    setUser(user);
+                })
+        }
         return () => unsubscribe();
-    }, [])
+    }, [user])
 
     const authInfo = {
         createUser,
