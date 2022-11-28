@@ -1,16 +1,29 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../Context/AuthProvider';
+import useToken from '../../hooks/useToken';
+
 
 const Login = () => {
+
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail);
+
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, providerLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
 
+    const googleProvider = new GoogleAuthProvider();
+
     const from = location.state?.from?.pathname || '/';
+
+    if (token) {
+        navigate(from);
+    }
 
     const handleLogin = data => {
         console.log(data)
@@ -27,6 +40,29 @@ const Login = () => {
                 setLoginError(error.message);
             });
 
+    }
+
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role };
+        console.log(saveUser, user);
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+            })
+    }
+
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then(res => {
+                saveUser(res.user.displayName, res.user.email, "buyer")
+            });
     }
     return (
         <div className='h-[800px] flex justify-center items-center text-neutral'>
@@ -65,7 +101,7 @@ const Login = () => {
                 <p className='my-2'>New to Unused Bargain <Link to='/signup'><span className='text-primary'>Register Now</span></Link></p>
 
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full bg-red-400'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline w-full bg-red-400'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );
