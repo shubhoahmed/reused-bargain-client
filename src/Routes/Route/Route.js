@@ -3,6 +3,7 @@ import DashboardLayout from "../../Layouts/DashboardLayout";
 import Main from "../../Layouts/Main";
 import AdvertiseItem from "../../Pages/AdvertiseItem/AdvertiseItem";
 import Blog from "../../Pages/Blog/Blog";
+import AddAProduct from "../../Pages/Dashboard/AddAProduct/AddAProduct";
 import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -54,9 +55,11 @@ const router = createBrowserRouter([
 
             },
             {
-                path: '/dashboard/allusers',
-                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+                path: '/dashboard/add-product',
+                element: <AddAProduct></AddAProduct>
+
             },
+
 
         ]
     }
