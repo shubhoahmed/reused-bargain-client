@@ -8,6 +8,7 @@ import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/Login/SignUp";
+import MyProduct from "../../Pages/MyProduct/MyProduct";
 import Products from "../../Pages/Products/Products";
 import DisplayError from "../../Shared/DisplayError/DisplayError";
 import AdminRoute from "../Route/AdminRoute/AdminRoute";
@@ -42,7 +43,14 @@ const router = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <PrivateRoute><Products></Products></PrivateRoute>
-            }
+            },
+            {
+                path: '*',
+                element: <div>
+                    <h1 className="text-center text-2xl text-semibold">This routes are not found:: 404 </h1>
+                    <img className="w-[400px] mx-auto my-5" src="https://aioseo.com/wp-content/uploads/2021/04/how-to-find-and-fix-404-errors-in-wordpress.png.webp" alt="" />
+                </div>
+            },
         ]
     },
     {
@@ -57,7 +65,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/add-product',
                 element: <AddAProduct></AddAProduct>
-
+            },
+            {
+                path: '/dashboard/my-products',
+                element: <MyProduct></MyProduct>
             },
 
 
