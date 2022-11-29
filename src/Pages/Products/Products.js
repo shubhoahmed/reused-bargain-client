@@ -9,7 +9,7 @@ const Products = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const res = await axios.get(`http://localhost:5000/products/${id}`);
+                const res = await axios.get(`https://reused-bargain-server-side-shubhoahmed.vercel.app/products/${id}`);
                 console.log(res);
                 setProducts(res.data)
             } catch (error) {

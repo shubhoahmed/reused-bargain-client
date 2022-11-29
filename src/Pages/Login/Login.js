@@ -45,7 +45,7 @@ const Login = () => {
     const saveUser = (name, email, role) => {
         const user = { name, email, role };
         console.log(saveUser, user);
-        fetch('http://localhost:5000/users', {
+        fetch('https://reused-bargain-server-side-shubhoahmed.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

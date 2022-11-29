@@ -5,16 +5,35 @@ import { AuthContext } from '../../Context/AuthProvider';
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext);
+    console.log(user);
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
-        <li><Link to='/appoinment'>Product Categories</Link></li>
+
+        {user?.role === 'buyer' && <>
+            <li><Link to='/orders'>All Oders</Link></li>
+        </>
+        }
+        {user?.role === 'seller' && <>
+            <li><Link to='/add-product'>Add A product</Link></li>
+            <li><Link to='/my-products'>My products</Link></li>
+            <li><Link to='/my-buyers'>My Buyers</Link></li>
+        </>
+        }
+        {user?.role === 'admin' && <>
+            <li><Link to='/all-sellers'>All Sellers </Link></li>
+            <li><Link to='/all-buyers'>All Buyers</Link></li>
+            <li><Link to='/repoted-item'>Reported Items</Link></li>
+        </>
+        }
 
         {user?.uid ? <>
             <li><Link to='/dashboard'>Dashboard</Link></li>
             <li><button onClick={logOut} >LogOut </button></li>
         </>
             : <li><Link to='/login'>Login </Link></li>}
+
+
     </>
     return (
         <div className="navbar bg-base-100 text-neutral flex justify-between">

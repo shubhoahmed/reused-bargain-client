@@ -8,7 +8,7 @@ const CategoryList = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const res = await axios.get('http://localhost:5000/categories');
+                const res = await axios.get('https://reused-bargain-server-side-shubhoahmed.vercel.app/categories');
                 console.log(res);
                 setCategories(res.data)
             } catch (error) {
