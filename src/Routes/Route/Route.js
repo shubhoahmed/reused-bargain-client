@@ -4,14 +4,12 @@ import Main from "../../Layouts/Main";
 import AdvertiseItem from "../../Pages/AdvertiseItem/AdvertiseItem";
 import Blog from "../../Pages/Blog/Blog";
 import AddAProduct from "../../Pages/Dashboard/AddAProduct/AddAProduct";
-import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/Login/SignUp";
 import MyProduct from "../../Pages/MyProduct/MyProduct";
 import Products from "../../Pages/Products/Products";
 import DisplayError from "../../Shared/DisplayError/DisplayError";
-import AdminRoute from "../Route/AdminRoute/AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 
 

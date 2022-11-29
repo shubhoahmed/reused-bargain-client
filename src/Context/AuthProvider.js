@@ -41,7 +41,8 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
         })
         if (user) {
-            fetch(`http://localhost:5000/users?email=${user.email}`)
+            fetch(` https://reused-bargain-server-side-shubhoahmed.vercel.app/
+users?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     user.role = data.role;

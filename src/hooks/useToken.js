@@ -5,7 +5,8 @@ const useToken = email => {
     console.log('used token called', email);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/jwt?email=${email}`)
+            fetch(` https://reused-bargain-server-side-shubhoahmed.vercel.app/
+jwt?email=${email}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data.accessToken) {

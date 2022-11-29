@@ -46,70 +46,71 @@ const SignUp = () => {
     const saveUser = (name, email, role) => {
         const user = { name, email, role };
         console.log(saveUser, user);
-        fetch('http://localhost:5000/users', {
+        fetch(' https://reused-bargain-server-side-shubhoahmed.vercel.app/
+users', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
-            },
+            'content-type': 'application/json'
+        },
             body: JSON.stringify(user)
         })
             .then(res => res.json())
-            .then(data => {
-                setCreatedUserEmail(email);
-            })
+    .then(data => {
+        setCreatedUserEmail(email);
+    })
     }
-    const handleGoogleSignIn = () => {
-        providerLogin(googleProvider)
-            .then(res => {
-                saveUser(res.user.displayName, res.user.email, "buyer")
-            });
-    }
+const handleGoogleSignIn = () => {
+    providerLogin(googleProvider)
+        .then(res => {
+            saveUser(res.user.displayName, res.user.email, "buyer")
+        });
+}
 
-    return (
-        <div className='h-[800px] flex justify-center items-center text-neutral'>
-            <div className='w-96 p-7'>
-                <h2 className='text-4xl text-center '>Sign Up</h2>
+return (
+    <div className='h-[800px] flex justify-center items-center text-neutral'>
+        <div className='w-96 p-7'>
+            <h2 className='text-4xl text-center '>Sign Up</h2>
 
-                <form onSubmit={handleSubmit(handleSignUp)}>
+            <form onSubmit={handleSubmit(handleSignUp)}>
 
-                    <div className="form-control w-full ">
+                <div className="form-control w-full ">
 
-                        <label className="label"><span className="label-text">Name</span></label>
+                    <label className="label"><span className="label-text">Name</span></label>
 
-                        <input type="text"  {...register("name", { required: true })} className="input input-bordered w-full max-w-xs" />
+                    <input type="text"  {...register("name", { required: true })} className="input input-bordered w-full max-w-xs" />
 
-                    </div>
-                    <div className="form-control w-full ">
+                </div>
+                <div className="form-control w-full ">
 
-                        <label className="label"><span className="label-text">Email*</span></label>
+                    <label className="label"><span className="label-text">Email*</span></label>
 
-                        <input type="email"  {...register("email", { required: true })} className="input input-bordered w-full max-w-xs" />
+                    <input type="email"  {...register("email", { required: true })} className="input input-bordered w-full max-w-xs" />
 
-                    </div>
-                    <div className="form-control w-full ">
-                        <label className="label"> <span className="label-text">Password*</span></label>
+                </div>
+                <div className="form-control w-full ">
+                    <label className="label"> <span className="label-text">Password*</span></label>
 
-                        <input type="password"  {...register("password", { required: 'Password is required', minLength: { value: 6, message: 'length should be 6 character.' } })} className="input input-bordered w-full" />
-                    </div>
-                    <div className='form-control w-full my-3'>
-                        <select className='p-3 border' {...register("role")}>
-                            <option value="buyer">Buyer</option>
-                            <option value="seller">Seller</option>
-                        </select>
-                    </div>
+                    <input type="password"  {...register("password", { required: 'Password is required', minLength: { value: 6, message: 'length should be 6 character.' } })} className="input input-bordered w-full" />
+                </div>
+                <div className='form-control w-full my-3'>
+                    <select className='p-3 border' {...register("role")}>
+                        <option value="buyer">Buyer</option>
+                        <option value="seller">Seller</option>
+                    </select>
+                </div>
 
-                    <input className='btn w-full' type="submit" value='SignUp' />
-                    {
-                        signUpError && <p className='text-red-500'>{signUpError}</p>
-                    }
-                </form>
-                <p className='my-2'>Already have an account? <Link to='/login'><span className='text-primary'>Please login</span></Link></p>
+                <input className='btn w-full' type="submit" value='SignUp' />
+                {
+                    signUpError && <p className='text-red-500'>{signUpError}</p>
+                }
+            </form>
+            <p className='my-2'>Already have an account? <Link to='/login'><span className='text-primary'>Please login</span></Link></p>
 
-                <div className="divider">OR</div>
-                <button onClick={handleGoogleSignIn} className='btn btn-outline w-full bg-red-400'>CONTINUE WITH GOOGLE</button>
-            </div>
+            <div className="divider">OR</div>
+            <button onClick={handleGoogleSignIn} className='btn btn-outline w-full bg-red-400'>CONTINUE WITH GOOGLE</button>
         </div>
-    );
+    </div>
+);
 };
 
 export default SignUp;
